@@ -14,6 +14,10 @@ This behemoth handles extensive search and sorts on relevance.
 * Fulltextsearch enabled objects are stored in a separate table.
 * Searches ALL Fulltextsearch enabled objects.
 * Returns a DataObjectSet which can be easily handled.
+* Return is sorted by relevance, not just a list of results.
+* Reports for most used searches so you can optimize your website-design maybe.
+* Reports for searches in general.
+* Adds a default search keywords function to all pages for better searchresults.
 
 ## Installation
 
