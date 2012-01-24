@@ -54,7 +54,9 @@ This behemoth handles extensive search and sorts on relevance.
 
 ## Other
 
-This module is given "as is" and I am not responsible for any damage it might do to your brain, dog, computer or website.
+This module is given "as is" and I am not responsible for any damage it might do to your brain, dog, cat, house, computer or website.
+
+## Actual license
 
 This module is published under BSD 2-clause license, although these are not in the actual classes, the license does apply:
 
