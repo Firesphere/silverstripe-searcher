@@ -14,7 +14,7 @@
                 </div>
 <div class="searchResults">
   <% if QueryXML %>
-    <p class="searchQuery"><strong><% _t('YOU_SEARCHED_FOR', 'You searched for *NYT*') %> &quot;{$QueryXML}&quot;</strong></p>
+    <p class="searchQuery"><strong><% _t('YOU_SEARCHED_FOR', 'You searched for') %> &quot;{$QueryXML}&quot;</strong></p>
   <% end_if %>
 
   <% if searchResults %>
@@ -29,11 +29,11 @@
             <% end_if %>
           </a>
           <p>$Content.LimitWordCountXML</p>
-          <a class="readMoreLink" href="$Link" title="<% _t('READ_MORE', 'Read more about *NYT*') %> &quot;{$Title.ATT}&quot;"><% _t('READ_MORE', 'Read more about *NYT*') %> &quot;{$Title}&quot;...</a>
+          <a class="readMoreLink" href="$Link" title="<% _t('READ_MORE', 'Read more about') %> &quot;{$Title.ATT}&quot;"><% _t('READ_MORE', 'Read more about') %> &quot;{$Title}&quot;...</a>
         </li>
       <% end_control %>
     </ul>
   <% else %>
-    <p><% _t('NO_SEARCH_RESULTS', 'Sorry, your search query did not return any results. *NYT*') %></p>
+    <p><% _t('NO_SEARCH_RESULTS', 'Sorry, your search query did not return any results.') %></p>
   <% end_if %>
 </div>

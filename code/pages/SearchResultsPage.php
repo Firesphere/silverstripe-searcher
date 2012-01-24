@@ -12,12 +12,15 @@ class SearchResultsPage extends Page {
 	 * does a fulltextsearch but matches on certain fields first and makes those results more important
 	 * also searches for dataobjects and merges the results and sorts like the queries
 	 * see: http://stackoverflow.com/questions/547542/how-can-i-manipulate-mysql-fulltext-search-relevance-to-make-one-field-more-valu
+	 * 
+	 * @var searchStr contains the searchstring.
+	 * @return A DataObjectSet with results
 	 */
 	public function searcher($searchStr = '') {
 		if ($searchStr) {
-			$this->QueryXML = Convert::raw2xml($searchStr);
 			$searchItems = array();
 			
+			$searchStr = Convert::raw2sql($searchStr);
 			/**
 			 * store the search for the report
 			 */
@@ -26,11 +29,11 @@ class SearchResultsPage extends Page {
 			$searchQuery->FromURL = (isset($_SERVER) && isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : 'unknown';
 			$searchQuery->write();
 
-			$searchStr = Convert::raw2sql($searchStr);
 
 			$searchables = DataObject::get('SearchObject');
 			foreach($searchables as $key => $searchable){
-				$searchItems[] = $this->buildSearch($searchStr, 'Title', 'Content', $searchable->Title);
+				$searchItems[] = $this->buildSearch($searchStr, 'Title', explode(',',$searchable->Fields), $searchable->Title, $searchable->Fulltextsearchable);
+				fb($searchable::$db, $searchable->Title);
 			}
 
 			$this->searchResults = new DataObjectSet();
@@ -44,58 +47,49 @@ class SearchResultsPage extends Page {
 		}
 	}
 
-	private function buildSearch($searchStr, $Title, $Content, $From){
+	private function buildSearch($searchStr, $Title, $Content = array(), $From, $fullTextSearch){
 
 			$today = date('Y-m-d');
 			$Instances = $From;
 			$ExtraSearch = array();
 			/**
-			 * This is for my personal news-module. It has publication-limits. This should be fixed in future versions.
+			 * This can't really be changed. But if the PublishFrom/PublishUntil field exists, it will be taken into account.
+			 * This is used, for example, to show events. Not showing the page after the event ended for example.
+			 * The generic "PublishFrom" and "PublishUntil" is chosen because it made sense.
 			 */
-			if($From == 'News'){
-				$ExtraSearch = array(
-					"PublishFrom <= '$today' OR PublishFrom IS NULL",
-					"PublishUntil >= '$today' OR PublishUntil IS NULL",
-				);
+			if(in_array('PublishFrom', $Content)){
+				$ExtraSearch[] = "PublishFrom <= '$today' OR PublishFrom IS NULL";
+			}
+			if(in_array('PublishUntil', $Content)){
+				$ExtraSearch[] = "PublishUntil >= '$today' OR PublishUntil IS NULL";
 			}
 			/**
-			 * And what about the SiteTree, only show if 1! The $searchID is a tricky one!
+			 * And what about the SiteTree, only show if 1! Note, ShowInSearch is defaulted to 1, so uncheck the errorpages for example.
 			 */
 			if($From == 'SiteTree'){
-				$ExtraSearch = array(
-					"ShowInSearch = 1",
-					"Status = 'Published'",
-				);
+				$ExtraSearch[] = "ShowInSearch = 1";
+				$ExtraSearch[] = "Status = 'Published'";
 			}
 			/**
-			 * Okies, lets fetch the fullTextSearch parts. Here, the definition of SiteTree $searchID is important.
-			 */
-			$fullTextSearch = Object::get_Extensions($Instances, true);
-			$resultArray = array();
-			foreach($fullTextSearch as $key => $value){
-					if(strpos($value, "FulltextSearchable") !== false){
-						$fields = str_replace("FulltextSearchable('", "", $value);
-						$fields = str_replace("')", '', $fields);
-						$resultArray = array_merge(explode(',', $fields), $resultArray);
-					}
-			}
-			$fullTextSearch = implode(',',array_unique($resultArray));
-
-			/**
-			 * Lets build our query
+			 * Lets build our query ('res' stands for 'results')
 			 */
 			$res = new SQLQuery();
 
 			$res->select = array();
 			$res->select[] = "*";
-			$res->select[] = "CASE WHEN " . $Content . " LIKE '%" . $searchStr . "%' THEN 1 ELSE 0 END AS keywordmatch";
+			foreach($Content as $key => $value){
+				if($value != 'Title'){
+					$res->select[] = "CASE WHEN " . $value . " LIKE '%" . $searchStr . "%' THEN 1 ELSE 0 END AS keywordmatch";
+				}
+			}
 			$res->select[] = "CASE WHEN " . $Title . " LIKE '%" . $searchStr . "%' THEN 1 ELSE 0 END AS titlematch";
 			$res->select[] = "MATCH (" . $fullTextSearch . ") AGAINST ('" . $searchStr . "') AS relevance";
 			
 			$res->from = array($From);
 			$res->where = array();
-			$res->where[] = $Content . " LIKE '%" . $searchStr . "%' OR ";
-			$res->where[] = $Title . " LIKE '%" . $searchStr . "%' OR ";
+			foreach($Content as $key => $value){
+				$res->where[] = $value . " LIKE '%" . $searchStr . "%' OR ";
+			}
 			$res->where[] = "MATCH(" . $fullTextSearch . ") AGAINST ('" . $searchStr . "' IN BOOLEAN MODE)";
 			$res->where = array(implode($res->where));
 
@@ -116,6 +110,7 @@ class SearchResultsPage extends Page {
 			return $Items;
 			/**
 			 * Thank you!
+			 * (Always be polite. This behemoth puts some stress on the database!)
 			 */
 	}
 

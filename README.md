@@ -13,7 +13,7 @@ This behemoth handles extensive search and sorts on relevance.
 
 * Fulltextsearch enabled objects are stored in a separate table.
 * Searches ALL Fulltextsearch enabled objects.
-* Returns a DataObjectSet which can be easily handled
+* Returns a DataObjectSet which can be easily handled.
 
 ## Installation
 
@@ -24,10 +24,17 @@ This behemoth handles extensive search and sorts on relevance.
  5.  Run in your browser - `/dev/build` to rebuild the database. 
  6.  You should see a new PageType in the CMS 'Search Results Page'.
 
+## Best practices
+
+* Use 'Content' as the default for a DataObject's main content. See known issues.
+* Use 'PublishFrom' and 'PublishUntil' as custom published-limits for the extra filter which is currently only applied to my own news-module.
+* 
+
 ## Future plans
 
 * Integrate a highlighter for searchresults.
+* Integrate the already set-up search-keywords feature for Objects with this property.
 
 ## Known issues:
 
-* It's assumed, the searchable classes have a Title and Content to search. This is hopefully soon fixed.
+* It's assumed, the searchable classes have a Title and Content to search. Can't be fixed since I can't look into your brain on what you are using.
