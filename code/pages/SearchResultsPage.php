@@ -19,11 +19,8 @@ class SearchResultsPage extends Page {
 	public function searcher($searchStr = '') {
 		if ($searchStr) {
 			$searchItems = array();
-			
 			$searchStr = Convert::raw2sql($searchStr);
-			/**
-			 * store the search for the report
-			 */
+
 			$searchQuery = new SearchQuery();
 			$searchQuery->Query = $searchStr;
 			$searchQuery->FromURL = (isset($_SERVER) && isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : 'unknown';
@@ -77,10 +74,8 @@ class SearchResultsPage extends Page {
 		$Instances = $From;
 		$ExtraSearch = array();
 		/**
-		 * This can't really be made generic. But if the PublishFrom/PublishUntil field exists, it will be taken into account.
 		 * This is used, for example, to show events. Not showing the page after the event ended for example.
 		 * The generic "PublishFrom" and "PublishUntil" is chosen because it made sense.
-		 * If you use different wording, feel free to change them accordingly. Offcourse.
 		 */
 		if(in_array('PublishFrom', $Content)){
 			$ExtraSearch[] = "PublishFrom <= '$today' OR PublishFrom IS NULL";
@@ -88,16 +83,12 @@ class SearchResultsPage extends Page {
 		if(in_array('PublishUntil', $Content)){
 			$ExtraSearch[] = "PublishUntil >= '$today' OR PublishUntil IS NULL";
 		}
-		/**
-		 * And what about the SiteTree, only show if 1! Note, ShowInSearch is defaulted to 1, so uncheck the errorpages for example.
-		 */
+
 		if($From == 'SiteTree'){
 			$ExtraSearch[] = "ShowInSearch = 1";
 			$ExtraSearch[] = "Status = 'Published'";
 		}
-		/**
-		 * Lets build our query ('res' stands for 'results')
-		 */
+
 		$res = new SQLQuery();
 
 		$res->select = array();
@@ -118,9 +109,6 @@ class SearchResultsPage extends Page {
 		$res->where[] = "MATCH(" . $fullTextSearch . ") AGAINST ('" . $searchStr . "' IN BOOLEAN MODE)";
 		$res->where = array(implode($res->where));
 
-		/**
-		 * Merge the extra's with the default.
-		 */
 		$res->where = array_merge($ExtraSearch, $res->where);
 
 		$res->having = array(
@@ -128,9 +116,6 @@ class SearchResultsPage extends Page {
 		);
 		$res->orderby = "keywordmatch DESC, titlematch DESC, relevance DESC";
 
-		/**
-		 * Build the dataobject to return
-		 */
 		$Items = singleton($Instances)->buildDataObjectSet($res->execute());
 		return $Items;
 		/**
@@ -150,10 +135,6 @@ class SearchResultsPage_Controller extends Page_Controller {
 
 	public function init() {
 		parent::init();
-
-		/**
-		* do search
-		*/
 		$req = $this->getRequest();
 		$searchStr = $req->postVar('Search');
 		$this->searcher($searchStr);

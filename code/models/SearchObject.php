@@ -25,9 +25,7 @@ class SearchObject extends DataObject {
 				foreach($extra as $id => $searchable){
 					if(strpos($searchable, 'FulltextSearchable') !== false){
 						if(!$exists = DataObject::get_one('SearchObject', 'Title LIKE \'' . $value . '\'')){
-							/**
-							 * Okies, lets fetch the fullTextSearch parts and clean them up.
-							 */
+
 							$resultArray = array();
 							$fields = str_replace("FulltextSearchable(", "", $searchable);
 							$fields = str_replace(")", '', $fields);
@@ -37,9 +35,6 @@ class SearchObject extends DataObject {
 							 
 							$new = new SearchObject();
 							$new->Title = $value;
-							/**
-							 * This is a bit redundant, since ClassName etc. might not matter much, but it is an improvement on the results to include ALL fields, I found. 
-							 */
 							$new->Fields = implode(',',array_keys(DataObject::database_fields($value)));
 							$new->Fulltextsearchable = implode(',',array_unique($resultArray));
 							$new->write();
