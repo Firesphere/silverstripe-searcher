@@ -3,7 +3,7 @@
 
 ## Introduction
 
-This behemoth handles extensive and sorts on relevance.
+This behemoth handles extensive search and sorts on relevance.
 
 ## Maintainer Contacts
 
