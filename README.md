@@ -34,6 +34,7 @@ This behemoth handles extensive search and sorts on relevance.
 * Check if a page from the SiteTree should be shown in search under Behaviour-tab to have it show in search (defaults to true/checked)
 * The better the keywords, the more chance they end up high in search results. Choose wisely.
 * Any DataObject that should be searched should be set in the _config with `DataObject::add_extension('ObjectName', 'FulltextSearchable('Title,Content,Extrafield,etc.'));`.
+* When adding a FulltextSearchable, you need to run a dev/build for it to be recorded in the SearchObject and have the fulltext enabled in the database.
 
 ## Future plans
 
