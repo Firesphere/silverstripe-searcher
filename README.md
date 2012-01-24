@@ -19,11 +19,10 @@ This behemoth handles extensive search and sorts on relevance.
 
  1.  Download the module from the link above. 
  2.  Extract the file (if you are on windows try 7-zip for extracting tar.gz files
- 3.  Make sure the folder after being extracted is named 'userforms' 
- 4.  Place this directory in your sites root directory. This is the one with sapphire and cms in it.
- 5   Add `FulltextSearchable::enable();` to your _config in mysite.
- 6.  Run in your browser - `/dev/build` to rebuild the database. 
- 7.  You should see a new PageType in the CMS 'Search Results Page'.
+ 3.  Place this directory in your sites root directory. This is the one with sapphire and cms in it.
+ 4   Add `FulltextSearchable::enable();` to your _config in mysite.
+ 5.  Run in your browser - `/dev/build` to rebuild the database. 
+ 6.  You should see a new PageType in the CMS 'Search Results Page'.
 
 ## Best practices
 
