@@ -27,8 +27,10 @@ class SearchObject extends DataObject {
 							 * Okies, lets fetch the fullTextSearch parts.
 							 */
 							$resultArray = array();
-							$fields = str_replace("FulltextSearchable('", "", $searchable);
-							$fields = str_replace("')", '', $fields);
+							$fields = str_replace("FulltextSearchable(", "", $searchable);
+							$fields = str_replace(")", '', $fields);
+							$fields = str_replace("'", "", $fields);
+							$fields = str_replace('"', '', $fields);
 							$resultArray = array_merge(explode(',', $fields), $resultArray);
 							 
 							$new = new SearchObject();
