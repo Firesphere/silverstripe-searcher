@@ -6,11 +6,11 @@
 class SearchReport extends SS_Report {
 
 	public function title() {
-		return(_t($this->class . '.TITLE', 'Searchreport *NYT*'));
+		return(_t($this->class . '.TITLE', 'Searchreport'));
 	}
 
 	public function description() {
-		return(_t($this->class . '.DESCRIPTION', 'Show searchqueries *NYT*'));
+		return(_t($this->class . '.DESCRIPTION', 'Show searchqueries'));
 	}
 
 	public function sourceRecords($params, $sort, $limit) {
@@ -25,15 +25,15 @@ class SearchReport extends SS_Report {
 	public function columns() {
 		$fields = array(
 			'Query' => array(
-				'title' => _t($this->class . '.QUERY', 'Searchquery *NYT*'),
+				'title' => _t($this->class . '.QUERY', 'Searchquery'),
 				'formatting' => '$value',
 			),
 			'FromURL' => array(
-				'title' => _t($this->class . '.FROM_URL', 'Search requested from this URL *NYT*'),
+				'title' => _t($this->class . '.FROM_URL', 'Search requested from this URL'),
 				'formatting' => '$value',
 			),
 			'Created' => array(
-				'title' => _t($this->class . '.CREATED', 'Search time/date *NYT*'),
+				'title' => _t($this->class . '.CREATED', 'Search time/date'),
 				'formatting' => '$value',
 			),
 		);
@@ -43,7 +43,7 @@ class SearchReport extends SS_Report {
 
 	public function parameterFields() {
 		return(new FieldSet(
-			new TextField('Query', _t($this->class . '.QUERY', 'Searchquery *NYT*'))
+			new TextField('Query', _t($this->class . '.QUERY', 'Searchquery'))
 		));
 	}
 }

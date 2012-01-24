@@ -6,11 +6,11 @@
 class TopSearchesReport extends SS_Report {
 
 	public function title() {
-		return(_t($this->class . '.TITLE', 'Top searches report *NYT*'));
+		return(_t($this->class . '.TITLE', 'Top searches report'));
 	}
 
 	public function description() {
-		return(_t($this->class . '.DESCRIPTION', 'Show top searchquery\'s *NYT*'));
+		return(_t($this->class . '.DESCRIPTION', 'Show top searchquery\'s'));
 	}
 
 	public function sourceRecords($params, $sort, $limit) {
@@ -33,11 +33,11 @@ class TopSearchesReport extends SS_Report {
 	public function columns() {
 		$fields = array(
 			'Query' => array(
-				'title' => _t($this->class . '.QUERY', 'Searchquery *NYT*'),
+				'title' => _t($this->class . '.QUERY', 'Searchquery'),
 				'formatting' => '$value',
 			),
 			'Occurences' => array(
-				'title' => _t($this->class . '.OCCURENCES', 'Occurences *NYT*'),
+				'title' => _t($this->class . '.OCCURENCES', 'Occurences'),
 				'formatting' => '$value',
 			),
 		);
@@ -47,8 +47,8 @@ class TopSearchesReport extends SS_Report {
 
 	public function parameterFields() {
 		return(new FieldSet(
-			new DropdownField('Period', _t($this->class . '.PERIOD', 'Period *NYT*'), array(
-				'ALL' => _t($this->class . '.ALL', 'All *NYT*'),
+			new DropdownField('Period', _t($this->class . '.PERIOD', 'Period'), array(
+				'ALL' => _t($this->class . '.ALL', 'All'),
 				'LAST7DAYS' => _t($this->class . '.LAST7DAYS', 'Last 7 days'),
 			))
 		));
