@@ -14,10 +14,6 @@ class TopSearchesReport extends SS_Report {
 	}
 
 	public function sourceRecords($params, $sort, $limit) {
-		fb($params, 'params');
-		fb($sort, 'sort');
-		fb($limit, 'limit');
-		//fb($sql);
 		$where = '';
 		if ($sort == '') $sort = 'Occurences DESC';
 		if (isset($params['Period']) && ($params['Period'] != '')) {

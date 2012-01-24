@@ -14,9 +14,6 @@ class SearchReport extends SS_Report {
 	}
 
 	public function sourceRecords($params, $sort, $limit) {
-		fb($params, 'params');
-		fb($sort, 'sort');
-		fb($limit, 'limit');
 		$where = '';
 		if (isset($params['Query']) && ($params['Query'] != '')) {
 			$where = 'Query LIKE \'%' . Convert::raw2sql($params['Query']) . '%\'';
