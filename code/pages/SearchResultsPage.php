@@ -43,6 +43,22 @@ class SearchResultsPage extends Page {
 			$this->searchResults->sort('relevance', 'DESC');
 			$this->searchResults->sort('titlematch', 'DESC');
 			$this->searchResults->sort('keywordmatch', 'DESC');
+			/**
+			 * This is future functionality. 
+			 *
+			if($this->SiteConfig()->Range > 0){
+			 	$start = $_GET['start'];
+				$length = $this->SiteConfig()->Range; 
+			 
+				//Fetch the slice
+				$this->searchResults = $this->searchResults->getRange($start, $length);
+				//Set the limit
+				$this->searchResults->setPageLimits($start,$length,$this->searchResults->count());
+				Session::set('SearchResults', $this->searchResults->getRange($length, $this->searchResults->count());			 
+				//Set the length
+				$this->searchResults->setPageLength($length);
+			}
+			/**/
 		}
 	}
 

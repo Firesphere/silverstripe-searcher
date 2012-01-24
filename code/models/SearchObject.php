@@ -15,7 +15,9 @@ class SearchObject extends DataObject {
 
 	/**
 	 * We build a database of all searchables, because the searchable class doesn't give everything back if 
-	 * classes are added via add_extension(); 
+	 * classes are added via Object::add_extension(); In a _config. Which is kinda what we like to search huh?
+	 * This function is quite heavy. But luckily only runs when a dev/build is required.
+	 * If you have tips to make it more efficient, please let me know?
 	 */
 	public function requireDefaultRecords() {
 		foreach(ClassInfo::allClasses() as $key => $value){
@@ -24,7 +26,7 @@ class SearchObject extends DataObject {
 					if(strpos($searchable, 'FulltextSearchable') !== false){
 						if(!$exists = DataObject::get_one('SearchObject', 'Title LIKE \'' . $value . '\'')){
 							/**
-							 * Okies, lets fetch the fullTextSearch parts.
+							 * Okies, lets fetch the fullTextSearch parts and clean them up.
 							 */
 							$resultArray = array();
 							$fields = str_replace("FulltextSearchable(", "", $searchable);

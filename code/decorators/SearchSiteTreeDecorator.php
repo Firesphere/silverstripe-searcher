@@ -10,7 +10,12 @@ class SearcherDecorator extends SiteTreeDecorator {
 		return array(
 			'db' => array(
 				'SearchKeywords' => 'Text',
+//				I want to limit the range in the future, but not stressing the DB more by re-doing the gets.
+//				'Range' => 'Int'
 			),
+//			'defaults' => array(
+//				'Range' => 4,
+//			),
 		);
 	}
 
@@ -19,16 +24,17 @@ class SearcherDecorator extends SiteTreeDecorator {
 		$tabset->push(
 			$addTab = new Tab(
 				'Searcher',
-				_t($this->class . '.TAB_SEARCHER', 'Search *NYT*'),
+				_t($this->class . '.TAB_SEARCHER', 'Search'),
 				new LiteralField(
 					'SearcherIntro',
-					'<p>' . _t(
-								$this->class . '.SEARCHER_INTRO',
-								'Specify keywords for the sitesearch *NYT*'
-							) .
-					'</p>'
+					'<p>' . _t($this->class . '.SEARCHER_INTRO','Specify keywords for the sitesearch') .'</p>'
 				),
-				new TextareaField('SearchKeywords', _t($this->class . '.KEYWORDS', 'Keywords *NYT*'))
+				new TextareaField('SearchKeywords', _t($this->class . '.KEYWORDS', 'Search enhancement Keywords'))
+//				This is for the future. Not yet implemented.
+//				new NumericField(
+//					'Range',
+//					'Amount of results to show per page'
+//				)
 			)
 		);
 	}
