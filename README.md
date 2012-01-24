@@ -28,13 +28,11 @@ This behemoth handles extensive search and sorts on relevance.
 
 * Use 'Content' as the default for a DataObject's main content. See known issues.
 * Use 'PublishFrom' and 'PublishUntil' as custom published-limits for the extra filter which is currently only applied to my own news-module.
-* 
 
 ## Future plans
 
 * Integrate a highlighter for searchresults.
-* Integrate the already set-up search-keywords feature for Objects with this property.
-
+* Give a range-option for the results. So pages won't go waaaaay down.
 ## Known issues:
 
 * It's assumed, the searchable classes have a Title and Content to search. Can't be fixed since I can't look into your brain on what you are using.
