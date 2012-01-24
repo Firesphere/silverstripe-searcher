@@ -9,18 +9,18 @@ class SearchResultsPage extends Page {
 	protected $pagetype_allow_multiple = false;
 
 	/**
-	* does a fulltextsearch but matches on certain fields first and makes those results more important
-	* also searches for dataobjects and merges the results and sorts like the queries
-	* see: http://stackoverflow.com/questions/547542/how-can-i-manipulate-mysql-fulltext-search-relevance-to-make-one-field-more-valu
-	*/
+	 * does a fulltextsearch but matches on certain fields first and makes those results more important
+	 * also searches for dataobjects and merges the results and sorts like the queries
+	 * see: http://stackoverflow.com/questions/547542/how-can-i-manipulate-mysql-fulltext-search-relevance-to-make-one-field-more-valu
+	 */
 	public function searcher($searchStr = '') {
 		if ($searchStr) {
 			$this->QueryXML = Convert::raw2xml($searchStr);
 			$searchItems = array();
 			
 			/**
-			* store the search for the report
-			*/
+			 * store the search for the report
+			 */
 			$searchQuery = new SearchQuery();
 			$searchQuery->Query = $searchStr;
 			$searchQuery->FromURL = (isset($_SERVER) && isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : 'unknown';
