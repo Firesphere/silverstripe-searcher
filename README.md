@@ -7,7 +7,7 @@ This behemoth handles extensive and sorts on relevance.
 
 ## Maintainer Contacts
 
-* Simon "Sphere" Erkelens (simon[at]casa-laguna[dot]net)
+* Simon "Sphere" Erkelens `simon[at]casa-laguna[dot]net`
 
 ##Features
 
