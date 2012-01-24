@@ -1,7 +1,7 @@
 <?php 
 /*
- * Moet waarschijnlijk ergens anders heen...
+ * Add decorators
  */
 // using our searchsystem, the searchables
-Object::add_extension('SiteTree', 'SqualSearcherDecorator');
+Object::add_extension('SiteTree', 'SearcherDecorator');
 Object::add_extension('SiteTree', "FulltextSearchable('Title,SearchKeywords,MenuTitle,Content,MetaTitle,MetaDescription,MetaKeywords')");
