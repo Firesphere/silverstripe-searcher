@@ -42,7 +42,7 @@ This behemoth handles extensive search and sorts on relevance.
 
 ## Known issues:
 
-* It's assumed, the searchable classes have a Title and Content to search. Can't be fixed since I can't look into your brain on what you are using.
+* It's assumed, the searchable classes have a Title to search. Can't be fixed since I can't look into your brain on what you are using as Title. Title is required, since it is keyworded, not just keymatched.
 
 ## Requests
 
