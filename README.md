@@ -54,6 +54,8 @@ This module is given "as is" and I am not responsible for any damage it might do
 
 This module is published under BSD 2-clause license, although these are not in the actual classes, the license does apply:
 
+http://www.opensource.org/licenses/BSD-2-Clause
+
 Copyright (c) 2012, Simon "Sphere" Erkelens
 All rights reserved.
 
