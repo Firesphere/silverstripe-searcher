@@ -5,27 +5,6 @@ class SearchResultsPage extends Page {
     protected $pagetype_allow_multiple = false;
 
     /**
-     * We built a database of all searchables, because the searchable class doesn't give everything back if 
-     * classes are added via add_extension(); 
-     */
-    public function requireDefaultRecords() {
-        foreach(ClassInfo::allClasses() as $key => $value){
-            if(ClassInfo::hasTable($value) && ($extra = Object::get_Extensions($value, true))){
-                foreach($extra as $id => $class){
-                    if(strpos($class, 'FulltextSearchable') !== false){
-                        if(!$exists = DataObject::get_one('SearchObject', 'Title LIKE \'' . $value . '\'')){
-                            $new = new SearchObject();
-                            $new->Title = $value;
-                            $new->write();
-                        }
-                    }
-                }
-            }
-        }
-        parent::requireDefaultRecords();
-    }
-
-    /**
      * does a fulltextsearch but matches on certain fields first and makes those results more important
      * also searches for dataobjects and merges the results and sorts like the queries
      * see: http://stackoverflow.com/questions/547542/how-can-i-manipulate-mysql-fulltext-search-relevance-to-make-one-field-more-valu
