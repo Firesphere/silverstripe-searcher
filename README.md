@@ -39,8 +39,11 @@ This behemoth handles extensive search and sorts on relevance.
 
 * Integrate a highlighter for searchresults.
 * Give a range-option for the results. So pages won't go waaaaay down.
-* Add translation (I've been lazy, sorry).
 
 ## Known issues:
 
 * It's assumed, the searchable classes have a Title and Content to search. Can't be fixed since I can't look into your brain on what you are using.
+
+## Requests
+
+* Please create a translation in your language if it doesn't exist yet!
