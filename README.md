@@ -17,12 +17,11 @@ This behemoth handles extensive search and sorts on relevance.
 
 ## Installation
 
- 1.  Download the module from the link above. 
- 2.  Extract the file (if you are on windows try 7-zip for extracting tar.gz files. 
- 3.  Place this directory in your sites root directory. This is the one with sapphire and cms in it. 
- 4.  Add `FulltextSearchable::enable();` to your _config in mysite. 
- 5.  Run in your browser - `/dev/build` to rebuild the database. 
- 6.  You should see a new PageType in the CMS 'Search Results Page'.
+ 1.  Make a fork of this module.
+ 2.  In your site-root, do `git clone https://{your username}@github.com/{your username}/silverstripe-searcher.git`. 
+ 3.  Add `FulltextSearchable::enable();` to your _config in mysite. 
+ 4.  Run in your browser - `www.example.com/dev/build` to rebuild the database. 
+ 5.  You should see a new PageType in the CMS 'Search Results Page'.
 
 ## Best practices
 
