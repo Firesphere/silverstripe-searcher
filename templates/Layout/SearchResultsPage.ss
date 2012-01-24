@@ -3,12 +3,12 @@
                         <fieldset>
                             <div id="Search" class="field text restoreMe nolabel">
                                 <div class="middleColumn">
-                                    <input type="text" class="text restoreMe nolabel" id="SearchForm_Search" name="Search" value="Zoeken" />
+					<input type="text" class="text restoreMe nolabel" id="SearchForm_Search" name="Search" value="<% _t('SEARCH', Search) %>" />
                                 </div>
 
                             </div>
-                            <input class="hidden nolabel" type="hidden" id="SearchForm_SearchDefault" name="SearchDefault" value="Zoeken" />
-                            <input class="action" type="submit" id="SearchForm_Submit" name="submit" value="Go" title="Zoeken" />
+                            <input class="hidden nolabel" type="hidden" id="SearchForm_SearchDefault" name="SearchDefault" value="<% _t('SEARCH', Search) %>" />
+                            <input class="action" type="submit" id="SearchForm_Submit" name="submit" value="<% _t('SEARCH', Search) %>" title="<% _t('SEARCH', Search) %>" />
                         </fieldset>
                     </form>
                 </div>
