@@ -57,6 +57,7 @@ This module is published under BSD 2-clause license, although these are not in t
 http://www.opensource.org/licenses/BSD-2-Clause
 
 Copyright (c) 2012, Simon "Sphere" Erkelens
+
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
