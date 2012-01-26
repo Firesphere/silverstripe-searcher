@@ -15,9 +15,8 @@ class SearchObject extends DataObject {
 
 	/**
 	 * We build a database of all searchables, because the searchable class doesn't give everything back if 
-	 * classes are added via Object::add_extension(); In a _config. Which is kinda what we like to search huh?
-	 * This function is quite heavy. But luckily only runs when a dev/build is required.
-	 * If you have tips to make it more efficient, please let me know?
+	 * classes are added via Object::add_extension(); In a _config.
+	 * Only executed on dev/build. Quite heavy and tries to eliminate doubles.
 	 */
 	public function requireDefaultRecords() {
 		$removeArray = array(
