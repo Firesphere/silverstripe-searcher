@@ -78,6 +78,7 @@ Great thanks to DasPlan for finding and rudimentary implementing the query in th
 # The actual query
 
 SELECT *, 
+	
 CASE WHEN ClassName LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch,
 
 CASE WHEN URLSegment LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
@@ -87,6 +88,7 @@ CASE WHEN Title LIKE '%ja%' THEN 1 ELSE 0 END AS titlematch,
 CASE WHEN MenuTitle LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
 
 CASE WHEN Content LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
+
 CASE WHEN MetaTitle LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
 
 CASE WHEN MetaDescription LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
