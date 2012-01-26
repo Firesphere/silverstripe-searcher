@@ -80,31 +80,31 @@ Great thanks to DasPlan for finding and rudimentary implementing the query in th
 
 SELECT *, 
 	
-CASE WHEN ClassName LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch,
+CASE WHEN ClassName LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch,
 
-CASE WHEN URLSegment LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
+CASE WHEN URLSegment LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
 
-CASE WHEN Title LIKE '%ja%' THEN 1 ELSE 0 END AS titlematch, 
+CASE WHEN Title LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS titlematch, 
 
-CASE WHEN MenuTitle LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
+CASE WHEN MenuTitle LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
 
-CASE WHEN Content LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
+CASE WHEN Content LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
 
-CASE WHEN MetaTitle LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
+CASE WHEN MetaTitle LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
 
-CASE WHEN MetaDescription LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
+CASE WHEN MetaDescription LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
 
-CASE WHEN MetaKeywords LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
+CASE WHEN MetaKeywords LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
 
-CASE WHEN ExtraMeta LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
+CASE WHEN ExtraMeta LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
 
-CASE WHEN SearchKeywords LIKE '%ja%' THEN 1 ELSE 0 END AS keywordmatch, 
+CASE WHEN SearchKeywords LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS keywordmatch, 
 
-MATCH (Title,MenuTitle,Content,MetaTitle,MetaDescription,MetaKeywords,SearchKeywords) AGAINST ('ja') AS relevance 
+MATCH (Title,MenuTitle,Content,MetaTitle,MetaDescription,MetaKeywords,SearchKeywords) AGAINST ('{searchquery}') AS relevance 
 
 FROM SiteTree 
 
-WHERE (ShowInSearch = 1) AND (Status = 'Published') AND (ClassName LIKE '%ja%' OR URLSegment LIKE '%ja%' OR Title LIKE '%ja%' OR MenuTitle LIKE '%ja%' OR Content LIKE '%ja%' OR MetaTitle LIKE '%ja%' OR MetaDescription LIKE '%ja%' OR MetaKeywords LIKE '%ja%' OR ExtraMeta LIKE '%ja%' OR SearchKeywords LIKE '%ja%' OR MATCH(Title,MenuTitle,Content,MetaTitle,MetaDescription,MetaKeywords,SearchKeywords) AGAINST ('ja' IN BOOLEAN MODE)) 
+WHERE (ShowInSearch = 1) AND (Status = 'Published') AND (ClassName LIKE '%{searchquery}%' OR URLSegment LIKE '%{searchquery}%' OR Title LIKE '%{searchquery}%' OR MenuTitle LIKE '%{searchquery}%' OR Content LIKE '%{searchquery}%' OR MetaTitle LIKE '%{searchquery}%' OR MetaDescription LIKE '%{searchquery}%' OR MetaKeywords LIKE '%{searchquery}%' OR ExtraMeta LIKE '%{searchquery}%' OR SearchKeywords LIKE '%{searchquery}%' OR MATCH(Title,MenuTitle,Content,MetaTitle,MetaDescription,MetaKeywords,SearchKeywords) AGAINST ('{searchquery}' IN BOOLEAN MODE)) 
 
 HAVING ( searchmatch > 0 OR keywordmatch > 0 OR titlematch > 0 OR relevance > 0 ) 
 
