@@ -38,8 +38,9 @@ class SearchResultsPage extends Page {
 			}
 
 			$this->searchResults->sort('relevance', 'DESC');
-			$this->searchResults->sort('titlematch', 'DESC');
 			$this->searchResults->sort('keywordmatch', 'DESC');
+			$this->searchResults->sort('titlematch', 'DESC');
+			$this->searchResults->sort('searchmatch', 'DESC');
 			/**
 			 * This is future functionality. 
 			 *
@@ -71,8 +72,8 @@ class SearchResultsPage extends Page {
 	private function buildSearch($searchStr, $Title, $Content = array(), $From, $fullTextSearch){
 
 		$today = date('Y-m-d');
-		$Instances = $From;
 		$ExtraSearch = array();
+		$SearchKeywords = false;
 		/**
 		 * This is used, for example, to show events. Not showing the page after the event ended for example.
 		 * The generic "PublishFrom" and "PublishUntil" is chosen because it made sense.
@@ -94,11 +95,17 @@ class SearchResultsPage extends Page {
 		$res->select = array();
 		$res->select[] = "*";
 		foreach($Content as $key => $value){
-			if($value != 'Title'){
+			if($value != 'Title' && $value != 'SearchKeywords'){
+				$res->select[] = "CASE WHEN " . $value . " LIKE '%" . $searchStr . "%' THEN 1 ELSE 0 END AS searchmatch";
+			}
+			elseif($value == 'Title'){
+				$res->select[] = "CASE WHEN " . $Title . " LIKE '%" . $searchStr . "%' THEN 1 ELSE 0 END AS titlematch";		
+			}
+			elseif($value == 'SearchKeywords'){
+				$SearchKeywords = true;
 				$res->select[] = "CASE WHEN " . $value . " LIKE '%" . $searchStr . "%' THEN 1 ELSE 0 END AS keywordmatch";
 			}
-		}
-		$res->select[] = "CASE WHEN " . $Title . " LIKE '%" . $searchStr . "%' THEN 1 ELSE 0 END AS titlematch";
+		} 
 		$res->select[] = "MATCH (" . $fullTextSearch . ") AGAINST ('" . $searchStr . "') AS relevance";
 
 		$res->from = array($From);
@@ -111,12 +118,17 @@ class SearchResultsPage extends Page {
 
 		$res->where = array_merge($ExtraSearch, $res->where);
 
-		$res->having = array(
-			"keywordmatch > 0 OR titlematch > 0 OR relevance > 0",
-		);
-		$res->orderby = "keywordmatch DESC, titlematch DESC, relevance DESC";
+		$res->having = array();
+		if($SearchKeywords){
+			$res->having[] = "searchmatch > 0 OR keywordmatch > 0 OR titlematch > 0 OR relevance > 0";
+			$res->orderby  = "searchmatch DESC, keywordmatch DESC, titlematch DESC, relevance DESC";
+		}
+		else{
+			$res->having[] = "searchmatch > 0 OR titlematch > 0 OR relevance > 0";
+			$res->orderby  = "searchmatch DESC, titlematch DESC, relevance DESC";
+		}
 
-		$Items = singleton($Instances)->buildDataObjectSet($res->execute());
+		$Items = singleton($From)->buildDataObjectSet($res->execute());
 		return $Items;
 		/**
 		 * Thank you!
