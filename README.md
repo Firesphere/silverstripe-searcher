@@ -78,38 +78,17 @@ Great thanks to DasPlan for finding and rudimentary implementing the query in th
 # The actual query
 
 SELECT *, 
-CASE WHEN ClassName LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN Created LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN LastEdited LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN URLSegment LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN Title LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS titlematch, 
-CASE WHEN MenuTitle LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN Content LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN MetaTitle LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN MetaDescription LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN MetaKeywords LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN ExtraMeta LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN ShowInMenus LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN ShowInSearch LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN HomepageForDomain LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN ProvideComments LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN Sort LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN HasBrokenFile LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN HasBrokenLink LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN Status LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN ReportClass LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN CanViewType LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN CanEditType LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN ToDo LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN Version LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN SearchKeywords LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS keywordmatch, 
-CASE WHEN Priority LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN ChangeFreq LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN ShowInHTML LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-CASE WHEN ParentID LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-MATCH (Title,SearchKeywords,MenuTitle,Content,MetaTitle,MetaDescription,MetaKeywords) AGAINST ('{searchquery}') AS relevance 
-FROM SiteTree 
-WHERE (ShowInSearch = 1) AND (Status = 'Published') AND (ClassName LIKE '%{searchquery}%' OR Created LIKE '%{searchquery}%' OR LastEdited LIKE '%{searchquery}%' OR URLSegment LIKE '%{searchquery}%' OR Title LIKE '%{searchquery}%' OR MenuTitle LIKE '%{searchquery}%' OR Content LIKE '%{searchquery}%' OR MetaTitle LIKE '%{searchquery}%' OR MetaDescription LIKE '%{searchquery}%' OR MetaKeywords LIKE '%{searchquery}%' OR ExtraMeta LIKE '%{searchquery}%' OR ShowInMenus LIKE '%{searchquery}%' OR ShowInSearch LIKE '%{searchquery}%' OR HomepageForDomain LIKE '%{searchquery}%' OR ProvideComments LIKE '%{searchquery}%' OR Sort LIKE '%{searchquery}%' OR HasBrokenFile LIKE '%{searchquery}%' OR HasBrokenLink LIKE '%{searchquery}%' OR Status LIKE '%{searchquery}%' OR ReportClass LIKE '%{searchquery}%' OR CanViewType LIKE '%{searchquery}%' OR CanEditType LIKE '%{searchquery}%' OR ToDo LIKE '%{searchquery}%' OR Version LIKE '%{searchquery}%' OR SearchKeywords LIKE '%{searchquery}%' OR Priority LIKE '%{searchquery}%' OR ChangeFreq LIKE '%{searchquery}%' OR ShowInHTML LIKE '%{searchquery}%' OR ParentID LIKE '%{searchquery}%' 
-OR MATCH(Title,SearchKeywords,MenuTitle,Content,MetaTitle,MetaDescription,MetaKeywords) AGAINST ('{searchquery}' IN BOOLEAN MODE)) 
+CASE WHEN ClassName LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, \n
+CASE WHEN URLSegment LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
+CASE WHEN Title LIKE '%ja%' THEN 1 ELSE 0 END AS titlematch, 
+CASE WHEN MenuTitle LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
+CASE WHEN Content LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
+CASE WHEN MetaTitle LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
+CASE WHEN MetaDescription LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
+CASE WHEN MetaKeywords LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
+CASE WHEN ExtraMeta LIKE '%ja%' THEN 1 ELSE 0 END AS searchmatch, 
+CASE WHEN SearchKeywords LIKE '%ja%' THEN 1 ELSE 0 END AS keywordmatch, 
+MATCH (Title,MenuTitle,Content,MetaTitle,MetaDescription,MetaKeywords,SearchKeywords) AGAINST ('ja') AS relevance 
+FROM SiteTree WHERE (ShowInSearch = 1) AND (Status = 'Published') AND (ClassName LIKE '%ja%' OR URLSegment LIKE '%ja%' OR Title LIKE '%ja%' OR MenuTitle LIKE '%ja%' OR Content LIKE '%ja%' OR MetaTitle LIKE '%ja%' OR MetaDescription LIKE '%ja%' OR MetaKeywords LIKE '%ja%' OR ExtraMeta LIKE '%ja%' OR SearchKeywords LIKE '%ja%' OR MATCH(Title,MenuTitle,Content,MetaTitle,MetaDescription,MetaKeywords,SearchKeywords) AGAINST ('ja' IN BOOLEAN MODE)) 
 HAVING ( searchmatch > 0 OR keywordmatch > 0 OR titlematch > 0 OR relevance > 0 ) 
 ORDER BY searchmatch DESC, keywordmatch DESC, titlematch DESC, relevance DESC
