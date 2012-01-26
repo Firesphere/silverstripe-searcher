@@ -31,6 +31,7 @@ This behemoth handles extensive search and sorts on relevance.
 
 * Use 'Content' as the default for a DataObject's main content. See known issues.
 * Use 'PublishFrom' and 'PublishUntil' as custom published-limits for the extra filter which is currently only applied to my own news-module.
+* The method 'SearchKeywords' is optional. The field adds a priority over actual content if it exists (and has data).
 
 ## Configuration
 
