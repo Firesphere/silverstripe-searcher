@@ -43,7 +43,6 @@ This behemoth handles extensive search and sorts on relevance.
 
 * Integrate a highlighter for searchresults.
 * Give a range-option for the results. So pages won't go waaaaay down.
-* Give SearchKeywords a higher priority then other fields.
 
 ## Known issues:
 
