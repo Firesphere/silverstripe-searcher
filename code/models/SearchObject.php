@@ -20,25 +20,61 @@ class SearchObject extends DataObject {
 	 * If you have tips to make it more efficient, please let me know?
 	 */
 	public function requireDefaultRecords() {
+		$removeArray = array(
+		    'Created',
+		    'LastEdited',
+		    'ShowInMenus',
+		    'ShowInSearch',
+		    'ShowInHTML',
+		    'Status',
+		    'CanViewType',
+		    'CanEditType',
+		    'HomepageForDomain',
+		    'ProvideComments',
+		    'Sort',
+		    'HasBrokenFile',
+		    'HasBrokenLink',
+		    'ReportClass',
+		    'ToDo',
+		    'Version',
+		    'Priority',
+		    'ParentID',
+		    'ChangeFreq',
+		    'ShowInHtml'
+		);
 		foreach(ClassInfo::allClasses() as $key => $value){
 			if(ClassInfo::hasTable($value) && ($extra = Object::get_Extensions($value, true))){
 				foreach($extra as $id => $searchable){
 					if(strpos($searchable, 'FulltextSearchable') !== false){
-						if(!$exists = DataObject::get_one('SearchObject', 'Title LIKE \'' . $value . '\'')){
+						//Remove useless DB-fields
+						$dbFields = DataObject::database_fields($value);
+						foreach($dbFields as $field => $fieldName){
+							if(in_array($field, $removeArray)){
+								unset($dbFields[$field]);
+							}
+						}
 
-							$resultArray = array();
-							$fields = str_replace("FulltextSearchable(", "", $searchable);
-							$fields = str_replace(")", '', $fields);
-							$fields = str_replace("'", "", $fields);
-							$fields = str_replace('"', '', $fields);
-							$resultArray = array_merge(explode(',', $fields), $resultArray);
-							 
+						$fields = str_replace("FulltextSearchable(", "", $searchable);
+						$fields = str_replace(")", '', $fields);
+						$fields = str_replace("'", "", $fields);
+						$fields = str_replace('"', '', $fields);
+						$resultArray = explode(',', $fields);
+						//Remove already known fields in case of a double
+						if($new = DataObject::get_one('SearchObject', 'Title LIKE \'' . $value . '\'')){
+							$existFields = explode(',',$new->Fulltextsearchable);
+							foreach($existFields as $fieldName => $existing){
+								if(in_array($existing, $resultArray)){
+									unset($existFields[$fieldName]);
+								}
+							}
+						}
+						else{
 							$new = new SearchObject();
 							$new->Title = $value;
-							$new->Fields = implode(',',array_keys(DataObject::database_fields($value)));
-							$new->Fulltextsearchable = implode(',',array_unique($resultArray));
-							$new->write();
+							$new->Fields = implode(',',array_unique(array_keys($dbFields)));
 						}
+						$new->Fulltextsearchable = implode(',',array_unique($resultArray));
+						$new->write();
 					}
 				}
 			}

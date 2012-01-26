@@ -43,6 +43,7 @@ This behemoth handles extensive search and sorts on relevance.
 
 * Integrate a highlighter for searchresults.
 * Give a range-option for the results. So pages won't go waaaaay down.
+* Remove unnecessary fields like 'ShowInMenus', 'Sort', 'ToDo', 'ReportClass' etc.
 
 ## Known issues:
 
@@ -107,7 +108,8 @@ CASE WHEN Priority LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch,
 CASE WHEN ChangeFreq LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
 CASE WHEN ShowInHTML LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
 CASE WHEN ParentID LIKE '%{searchquery}%' THEN 1 ELSE 0 END AS searchmatch, 
-MATCH (Title,SearchKeywords,MenuTitle,Content,MetaTitle,MetaDescription,MetaKeywords) AGAINST ('{searchquery}') AS relevance FROM SiteTree 
+MATCH (Title,SearchKeywords,MenuTitle,Content,MetaTitle,MetaDescription,MetaKeywords) AGAINST ('{searchquery}') AS relevance 
+FROM SiteTree 
 WHERE (ShowInSearch = 1) AND (Status = 'Published') AND (ClassName LIKE '%{searchquery}%' OR Created LIKE '%{searchquery}%' OR LastEdited LIKE '%{searchquery}%' OR URLSegment LIKE '%{searchquery}%' OR Title LIKE '%{searchquery}%' OR MenuTitle LIKE '%{searchquery}%' OR Content LIKE '%{searchquery}%' OR MetaTitle LIKE '%{searchquery}%' OR MetaDescription LIKE '%{searchquery}%' OR MetaKeywords LIKE '%{searchquery}%' OR ExtraMeta LIKE '%{searchquery}%' OR ShowInMenus LIKE '%{searchquery}%' OR ShowInSearch LIKE '%{searchquery}%' OR HomepageForDomain LIKE '%{searchquery}%' OR ProvideComments LIKE '%{searchquery}%' OR Sort LIKE '%{searchquery}%' OR HasBrokenFile LIKE '%{searchquery}%' OR HasBrokenLink LIKE '%{searchquery}%' OR Status LIKE '%{searchquery}%' OR ReportClass LIKE '%{searchquery}%' OR CanViewType LIKE '%{searchquery}%' OR CanEditType LIKE '%{searchquery}%' OR ToDo LIKE '%{searchquery}%' OR Version LIKE '%{searchquery}%' OR SearchKeywords LIKE '%{searchquery}%' OR Priority LIKE '%{searchquery}%' OR ChangeFreq LIKE '%{searchquery}%' OR ShowInHTML LIKE '%{searchquery}%' OR ParentID LIKE '%{searchquery}%' 
 OR MATCH(Title,SearchKeywords,MenuTitle,Content,MetaTitle,MetaDescription,MetaKeywords) AGAINST ('{searchquery}' IN BOOLEAN MODE)) 
 HAVING ( searchmatch > 0 OR keywordmatch > 0 OR titlematch > 0 OR relevance > 0 ) 
