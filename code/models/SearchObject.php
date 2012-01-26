@@ -52,6 +52,9 @@ class SearchObject extends DataObject {
 							if(in_array($field, $removeArray)){
 								unset($dbFields[$field]);
 							}
+							if(strpos($field, 'ID')){
+								unset($dbFields[$field]);
+							}
 						}
 
 						$fields = str_replace("FulltextSearchable(", "", $searchable);
@@ -62,11 +65,12 @@ class SearchObject extends DataObject {
 						//Remove already known fields in case of a double
 						if($new = DataObject::get_one('SearchObject', 'Title LIKE \'' . $value . '\'')){
 							$existFields = explode(',',$new->Fulltextsearchable);
-							foreach($existFields as $fieldName => $existing){
+							foreach($existFields as $fieldID => $existing){
 								if(in_array($existing, $resultArray)){
 									unset($existFields[$fieldName]);
 								}
 							}
+							$resultArray = array_merge($resultArray, $existFields);
 						}
 						else{
 							$new = new SearchObject();
