@@ -101,7 +101,9 @@ CASE WHEN SearchKeywords LIKE '%ja%' THEN 1 ELSE 0 END AS keywordmatch,
 
 MATCH (Title,MenuTitle,Content,MetaTitle,MetaDescription,MetaKeywords,SearchKeywords) AGAINST ('ja') AS relevance 
 
-FROM SiteTree WHERE (ShowInSearch = 1) AND (Status = 'Published') AND (ClassName LIKE '%ja%' OR URLSegment LIKE '%ja%' OR Title LIKE '%ja%' OR MenuTitle LIKE '%ja%' OR Content LIKE '%ja%' OR MetaTitle LIKE '%ja%' OR MetaDescription LIKE '%ja%' OR MetaKeywords LIKE '%ja%' OR ExtraMeta LIKE '%ja%' OR SearchKeywords LIKE '%ja%' OR MATCH(Title,MenuTitle,Content,MetaTitle,MetaDescription,MetaKeywords,SearchKeywords) AGAINST ('ja' IN BOOLEAN MODE)) 
+FROM SiteTree 
+
+WHERE (ShowInSearch = 1) AND (Status = 'Published') AND (ClassName LIKE '%ja%' OR URLSegment LIKE '%ja%' OR Title LIKE '%ja%' OR MenuTitle LIKE '%ja%' OR Content LIKE '%ja%' OR MetaTitle LIKE '%ja%' OR MetaDescription LIKE '%ja%' OR MetaKeywords LIKE '%ja%' OR ExtraMeta LIKE '%ja%' OR SearchKeywords LIKE '%ja%' OR MATCH(Title,MenuTitle,Content,MetaTitle,MetaDescription,MetaKeywords,SearchKeywords) AGAINST ('ja' IN BOOLEAN MODE)) 
 
 HAVING ( searchmatch > 0 OR keywordmatch > 0 OR titlematch > 0 OR relevance > 0 ) 
 
