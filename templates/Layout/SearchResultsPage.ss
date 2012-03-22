@@ -1,5 +1,5 @@
 <div id="searchbox">
-                    <form  id="SearchForm" action="$getURL(SearchResultPage)" method="post" enctype="application/x-www-form-urlencoded">
+                    <form  id="SearchForm" action="$getURL(SearchResultsPage)" method="post" enctype="application/x-www-form-urlencoded">
                         <fieldset>
                             <div id="Search" class="field text restoreMe nolabel">
                                 <div class="middleColumn">
