@@ -1,5 +1,6 @@
-# SilverStripe FULLTEXT search function
+# DEPRECATED
 =====================================
+# SilverStripe FULLTEXT search function
 
 ## Introduction
 
